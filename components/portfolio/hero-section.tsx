@@ -25,11 +25,11 @@ export function HeroSection({
     <section className="rounded-[2rem] px-5 py-4 sm:px-8 sm:py-6">
       <div className="flex flex-col gap-4">
         <div className="space-y-3">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-8">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-5">
             <h1 className="text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-[var(--text-strong)] sm:text-6xl">
               {name}
             </h1>
-            <div className="flex items-center gap-2 self-start lg:justify-self-end lg:self-center">
+            <div className="flex items-center gap-2 self-start lg:translate-x-3 lg:justify-self-end lg:self-center">
               <ThemeToggle />
               <SocialLinks links={socialLinks} />
             </div>

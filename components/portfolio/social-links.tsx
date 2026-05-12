@@ -12,12 +12,12 @@ type SocialLinksProps = {
 
 export function SocialLinks({ links }: SocialLinksProps) {
   return (
-    <div className="flex items-center gap-1.5 text-[var(--icon)]">
+    <div className="flex items-center gap-1 text-[var(--icon)]">
       {links.map(({ href, icon, label }) => (
         <a
           key={label}
           aria-label={label}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-transparent hover:border-[var(--card-border)] hover:bg-[var(--card-hover)] hover:text-[var(--text-strong)]"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-transparent hover:border-[var(--card-border)] hover:bg-[var(--card-hover)] hover:text-[var(--text-strong)] sm:h-10 sm:w-10"
           href={href}
           target="_blank"
           rel="noreferrer"

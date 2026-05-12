@@ -9,6 +9,7 @@ import {
   FolderGit2,
   Gamepad2,
   Hash,
+  Mail,
   MonitorCog,
   Radar,
   TerminalSquare,
@@ -31,6 +32,11 @@ export default function Home() {
       icon: <GitHubLogo />,
     },
     {
+      label: "Email",
+      href: "mailto:nikofischmeister@gmail.com",
+      icon: <Mail className="h-4 w-4" strokeWidth={1.8} />,
+    },
+    {
       label: "Devpost",
       href: "https://devpost.com/triangularfish?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav",
       icon: <DevpostLogo />,
@@ -46,7 +52,7 @@ export default function Home() {
       <Highlight tone="pink">3x hackathon winner</Highlight>
     </>,
     <>
-      Previous Embedded System Developer at{" "}
+      previous Embedded System Developer at{" "}
       <Highlight tone="yellow">Fronius International</Highlight> (Summer 2025)
     </>,
     <>
@@ -159,8 +165,8 @@ export default function Home() {
       description:
         "Designed the PCB, assembled the robot, and wrote PIC16F887 firmware for maze solving, line tracking, and flame detection.",
       href: "#",
-      imageSrc: "/projects/firefighter.svg",
-      imageAlt: "Abstract preview for the autonomous firefighter robot",
+      imageSrc: "/projects/firefighter-bot.png",
+      imageAlt: "Photo of the autonomous firefighter robot navigating a maze course",
       tools: ["TraxMaker", "GCBASIC", "PIC16F887"],
     },
     {
