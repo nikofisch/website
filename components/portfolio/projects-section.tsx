@@ -3,8 +3,10 @@ import { ProjectRow } from "@/components/portfolio/project-row";
 type Project = {
   name: string;
   description: string;
-  tag: string;
   href?: string;
+  imageSrc: string;
+  imageAlt: string;
+  tools: string[];
 };
 
 type ProjectsSectionProps = {
@@ -15,19 +17,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section
       id="projects"
-      className="mt-10 border-t border-[var(--card-border)] px-5 pt-10 pb-10 sm:px-8"
+      className="mt-6 border-t border-[var(--card-border)] px-5 pt-4 pb-8 sm:px-8"
     >
-      <div className="mb-4 flex items-end justify-between gap-3">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.26em] text-[var(--text-soft)]">
-            projects
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--text-strong)] sm:text-3xl">
-            consectetur adipiscing elit
-          </h2>
-        </div>
+      <div className="mb-3 flex items-end justify-between gap-3">
+        <p className="font-mono text-[1.05rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.1rem]">
+          Projects
+        </p>
       </div>
-      <div className="space-y-3">
+      <div className="grid gap-2.5 md:grid-cols-2">
         {projects.map((project) => (
           <ProjectRow key={project.name} {...project} />
         ))}

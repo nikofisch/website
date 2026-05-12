@@ -1,9 +1,9 @@
-import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 type SocialLink = {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: ReactNode;
 };
 
 type SocialLinksProps = {
@@ -13,7 +13,7 @@ type SocialLinksProps = {
 export function SocialLinks({ links }: SocialLinksProps) {
   return (
     <div className="flex items-center gap-1.5 text-[var(--icon)]">
-      {links.map(({ href, icon: Icon, label }) => (
+      {links.map(({ href, icon, label }) => (
         <a
           key={label}
           aria-label={label}
@@ -22,7 +22,7 @@ export function SocialLinks({ links }: SocialLinksProps) {
           target="_blank"
           rel="noreferrer"
         >
-          <Icon className="h-4 w-4" strokeWidth={2} />
+          {icon}
         </a>
       ))}
     </div>
