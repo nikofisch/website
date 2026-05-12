@@ -150,8 +150,8 @@ export default function Home() {
       description:
         "Built a Python wrapper for the PicoScope 4262 and automated Fourier-based harmonic analysis with closed-loop cancellation testing.",
       href: "#",
-      imageSrc: "/projects/fronius.svg",
-      imageAlt: "Abstract preview for the Fronius harmonic analysis project",
+      imageSrc: "/projects/fronius-harmonic-analysis.png",
+      imageAlt: "Spectrum analysis screenshot showing a 400 kHz harmonic peak and labeled harmonics",
       tools: ["Python", "PicoScope", "PicoSDK", "SciPy", "Matplotlib"],
     },
     {
