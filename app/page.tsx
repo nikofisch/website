@@ -43,21 +43,37 @@ export default function Home() {
       <Highlight tone="lavender">operating systems</Highlight>
     </>,
     <>
-      <Highlight tone="pink">3x hackathon winner</Highlight> across team projects
-      and fast-turnaround builds
+      <Highlight tone="pink">3x hackathon winner</Highlight>
     </>,
     <>
-      Embedded System Developer at{" "}
+      Previous Embedded System Developer at{" "}
       <Highlight tone="yellow">Fronius International</Highlight> (Summer 2025)
     </>,
     <>
-      reached <Highlight tone="rose">61k+ views</Highlight> on my Arch Linux dotfiles repo
+      reached{" "}
+      <a
+        href="https://www.reddit.com/r/unixporn/comments/1jtdn9o/hyprland_first_rice/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block rounded-[0.4rem] transition-transform hover:scale-[1.02]"
+      >
+        <Highlight tone="rose">67k+ views</Highlight>
+      </a>{" "}
+      on my Arch Linux{" "}
+      <a
+        href="https://github.com/nikofisch/dotfiles"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block rounded-[0.4rem] transition-transform hover:scale-[1.02]"
+      >
+        <Highlight tone="pink">dotfiles</Highlight>
+      </a>
+      {" "}repo
     </>,
     <>
-      outside of school I like{" "}
-      <Highlight tone="blue">music</Highlight>,{" "}
-      <Highlight tone="mint">sports</Highlight>, and{" "}
-      <Highlight tone="rose">traveling</Highlight>
+      outside of school, I’m interested in{" "}
+      <Highlight tone="blue">finance</Highlight> and{" "}
+      <Highlight tone="mint">travelling</Highlight>
     </>,
   ];
 
@@ -161,7 +177,7 @@ export default function Home() {
       description:
         "Created a real-time Processing simulation with modular physics, configurable wind and wave forces, and save/load support.",
       href: "#",
-      imageSrc: "/projects/boat-sim-2026-05-12-2.png",
+      imageSrc: "/projects/boat-sim-2026-05-12-5.png",
       imageAlt: "Screenshot of the boat dynamics simulator with wave and wind controls",
       tools: ["Processing", "GUI"],
     },
