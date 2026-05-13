@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type AnimatedNameVariant = {
   value: string;
@@ -8,9 +8,18 @@ export type AnimatedNameVariant = {
   dir?: "ltr" | "rtl";
 };
 
+const createOriginalVariant = (
+  originalName: string,
+): AnimatedNameVariant => ({
+  value: originalName,
+  lang: "en",
+  dir: "ltr",
+});
+
 const DELETE_SPEED_MS = 190;
 const TYPE_SPEED_MS = 305;
 const HOLD_MS = 3500;
+const PAUSE_POLL_MS = 50;
 
 type AnimatedNameProps = {
   originalName: string;
@@ -21,23 +30,24 @@ export function AnimatedName({
   originalName,
   variants,
 }: AnimatedNameProps) {
+  const originalVariant = createOriginalVariant(originalName);
   const sizingVariants = [
-    { value: originalName, lang: "en", dir: "ltr" as const },
+    originalVariant,
     ...variants,
   ];
   const [displayedName, setDisplayedName] = useState(originalName);
-  const [activeVariant, setActiveVariant] = useState<AnimatedNameVariant>({
-    value: originalName,
-    lang: "en",
-    dir: "ltr",
-  });
+  const [activeVariant, setActiveVariant] =
+    useState<AnimatedNameVariant>(originalVariant);
+  const displayedNameRef = useRef(originalName);
+  const activeVariantRef = useRef<AnimatedNameVariant>(originalVariant);
+  const hoveredRef = useRef(false);
+  const hoverRestoreRef = useRef<{
+    displayedName: string;
+    activeVariant: AnimatedNameVariant;
+  } | null>(null);
 
   useEffect(() => {
-    const originalVariant: AnimatedNameVariant = {
-      value: originalName,
-      lang: "en",
-      dir: "ltr",
-    };
+    const originalVariant = createOriginalVariant(originalName);
 
     if (variants.length === 0) {
       return;
@@ -52,7 +62,7 @@ export function AnimatedName({
     const sequence = [...variants, originalVariant];
     let currentText = originalName;
 
-    const wait = (duration: number) =>
+    const sleep = (duration: number) =>
       new Promise<void>((resolve) => {
         const timeoutId = window.setTimeout(() => {
           timeouts.delete(timeoutId);
@@ -62,17 +72,44 @@ export function AnimatedName({
         timeouts.add(timeoutId);
       });
 
+    const wait = async (duration: number) => {
+      let remaining = duration;
+
+      while (!cancelled && remaining > 0) {
+        if (hoveredRef.current) {
+          await sleep(PAUSE_POLL_MS);
+          continue;
+        }
+
+        const step = Math.min(remaining, PAUSE_POLL_MS);
+        await sleep(step);
+        remaining -= step;
+      }
+    };
+
+    const waitForHoverEnd = async () => {
+      while (!cancelled && hoveredRef.current) {
+        await sleep(PAUSE_POLL_MS);
+      }
+    };
+
     const runAnimation = async () => {
       await wait(HOLD_MS);
 
       while (!cancelled) {
         for (const variant of sequence) {
+          await waitForHoverEnd();
+
           while (!cancelled && currentText.length > 0) {
+            await waitForHoverEnd();
             currentText = currentText.slice(0, -1);
+            displayedNameRef.current = currentText;
             setDisplayedName(currentText);
             await wait(DELETE_SPEED_MS);
           }
 
+          await waitForHoverEnd();
+          activeVariantRef.current = variant;
           setActiveVariant(variant);
 
           for (const character of Array.from(variant.value)) {
@@ -80,7 +117,9 @@ export function AnimatedName({
               return;
             }
 
+            await waitForHoverEnd();
             currentText += character;
+            displayedNameRef.current = currentText;
             setDisplayedName(currentText);
             await wait(TYPE_SPEED_MS);
           }
@@ -89,6 +128,11 @@ export function AnimatedName({
         }
       }
     };
+
+    displayedNameRef.current = originalName;
+    activeVariantRef.current = originalVariant;
+    hoverRestoreRef.current = null;
+    hoveredRef.current = false;
 
     void runAnimation();
 
@@ -101,11 +145,43 @@ export function AnimatedName({
     };
   }, [originalName, variants]);
 
+  const handlePointerEnter = () => {
+    if (hoveredRef.current) {
+      return;
+    }
+
+    hoveredRef.current = true;
+    hoverRestoreRef.current = {
+      displayedName: displayedNameRef.current,
+      activeVariant: activeVariantRef.current,
+    };
+    displayedNameRef.current = originalName;
+    activeVariantRef.current = originalVariant;
+    setDisplayedName(originalName);
+    setActiveVariant(originalVariant);
+  };
+
+  const handlePointerLeave = () => {
+    hoveredRef.current = false;
+
+    if (!hoverRestoreRef.current) {
+      return;
+    }
+
+    displayedNameRef.current = hoverRestoreRef.current.displayedName;
+    activeVariantRef.current = hoverRestoreRef.current.activeVariant;
+    setDisplayedName(hoverRestoreRef.current.displayedName);
+    setActiveVariant(hoverRestoreRef.current.activeVariant);
+    hoverRestoreRef.current = null;
+  };
+
   return (
     <span
       lang={activeVariant.lang}
       dir={activeVariant.dir ?? "ltr"}
       className="inline-grid whitespace-nowrap"
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       <span
         aria-hidden="true"
