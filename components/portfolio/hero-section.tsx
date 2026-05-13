@@ -1,4 +1,8 @@
 import type { ReactNode } from "react";
+import {
+  AnimatedName,
+  type AnimatedNameVariant,
+} from "@/components/portfolio/animated-name";
 import { SocialLinks } from "@/components/portfolio/social-links";
 import { ThemeToggle } from "@/components/portfolio/theme-toggle";
 
@@ -10,6 +14,7 @@ type SocialLink = {
 
 type HeroSectionProps = {
   name: string;
+  nameTranslations?: AnimatedNameVariant[];
   intro: string;
   items: ReactNode[];
   socialLinks: SocialLink[];
@@ -17,6 +22,7 @@ type HeroSectionProps = {
 
 export function HeroSection({
   name,
+  nameTranslations = [],
   intro,
   items,
   socialLinks,
@@ -25,11 +31,18 @@ export function HeroSection({
     <section className="rounded-[2rem] px-5 py-4 sm:px-8 sm:py-6">
       <div className="flex flex-col gap-4">
         <div className="space-y-3">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-5">
-            <h1 className="text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-[var(--text-strong)] sm:text-6xl">
-              {name}
+          <div className="space-y-4">
+            <h1 className="min-w-0 flex-1 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-[var(--text-strong)] sm:text-6xl">
+              {nameTranslations.length > 0 ? (
+                <AnimatedName
+                  originalName={name}
+                  variants={nameTranslations}
+                />
+              ) : (
+                name
+              )}
             </h1>
-            <div className="flex items-center gap-2 self-start lg:translate-x-3 lg:justify-self-end lg:self-center">
+            <div className="flex flex-wrap items-center gap-3">
               <ThemeToggle />
               <SocialLinks links={socialLinks} />
             </div>

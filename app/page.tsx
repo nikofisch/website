@@ -14,12 +14,31 @@ import {
   Radar,
   TerminalSquare,
 } from "lucide-react";
+import type { AnimatedNameVariant } from "@/components/portfolio/animated-name";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { Highlight } from "@/components/portfolio/highlight";
 import { ProjectsSection } from "@/components/portfolio/projects-section";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 
 export default function Home() {
+  const nameTranslations: AnimatedNameVariant[] = [
+    {
+      value: "ニコラウス・フィッシュマイスター",
+      lang: "ja",
+      dir: "ltr",
+    },
+    {
+      value: "نيكولاوس فيشمايستر",
+      lang: "ar",
+      dir: "rtl",
+    },
+    {
+      value: "Николаус Фишмайстер",
+      lang: "ru",
+      dir: "ltr",
+    },
+  ];
+
   const socialLinks = [
     {
       label: "LinkedIn",
@@ -202,6 +221,7 @@ export default function Home() {
     <main className="mx-auto flex w-full max-w-[62rem] flex-1 flex-col px-5 py-6 sm:px-8 sm:py-8">
       <HeroSection
         name="Nikolaus Fischmeister"
+        nameTranslations={nameTranslations}
         intro="Computer Engineering Student @ University of Toronto."
         items={heroItems}
         socialLinks={socialLinks}
