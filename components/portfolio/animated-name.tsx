@@ -11,7 +11,6 @@ export type AnimatedNameVariant = {
 const DELETE_SPEED_MS = 190;
 const TYPE_SPEED_MS = 305;
 const HOLD_MS = 3500;
-const INITIAL_HOLD_MS = 60000;
 
 type AnimatedNameProps = {
   originalName: string;
@@ -64,7 +63,7 @@ export function AnimatedName({
       });
 
     const runAnimation = async () => {
-      await wait(INITIAL_HOLD_MS);
+      await wait(HOLD_MS);
 
       while (!cancelled) {
         for (const variant of sequence) {
