@@ -32,7 +32,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Portfolio",
+  title: "Nikolaus | Portfoilio",
   description: "A minimal personal portfolio built with Next.js and Tailwind CSS.",
 };
 
