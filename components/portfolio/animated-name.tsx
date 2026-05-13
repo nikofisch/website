@@ -16,9 +16,9 @@ const createOriginalVariant = (
   dir: "ltr",
 });
 
-const DELETE_SPEED_MS = 190;
-const TYPE_SPEED_MS = 305;
-const HOLD_MS = 3500;
+const DELETE_SPEED_MS = 145;
+const TYPE_SPEED_MS = 235;
+const HOLD_MS = 2500;
 const PAUSE_POLL_MS = 50;
 
 type AnimatedNameProps = {
@@ -179,26 +179,26 @@ export function AnimatedName({
     <span
       lang={activeVariant.lang}
       dir={activeVariant.dir ?? "ltr"}
-      className="inline-grid whitespace-nowrap"
+      className="grid max-w-full"
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
       <span
         aria-hidden="true"
-        className="col-start-1 row-start-1 grid invisible"
+        className="col-start-1 row-start-1 grid max-w-full invisible"
       >
         {sizingVariants.map((variant) => (
           <span
             key={`${variant.lang ?? "plain"}-${variant.value}`}
             lang={variant.lang}
             dir={variant.dir ?? "ltr"}
-            className="col-start-1 row-start-1 block"
+            className="col-start-1 row-start-1 block break-words whitespace-normal"
           >
             {variant.value}
           </span>
         ))}
       </span>
-      <span className="col-start-1 row-start-1 inline-flex items-baseline">
+      <span className="col-start-1 row-start-1 block break-words whitespace-normal">
         <span>{displayedName}</span>
         <span
           aria-hidden="true"

@@ -23,8 +23,8 @@ import { SkillsSection } from "@/components/portfolio/skills-section";
 export default function Home() {
   const nameTranslations: AnimatedNameVariant[] = [
     {
-      value: "ニコラウス・フィッシュマイスター",
-      lang: "ja",
+      value: "尼古劳斯·菲施迈斯特",
+      lang: "zh",
       dir: "ltr",
     },
     {
@@ -222,7 +222,7 @@ export default function Home() {
       <HeroSection
         name="Nikolaus Fischmeister"
         nameTranslations={nameTranslations}
-        intro="Computer Engineering Student @ University of Toronto."
+        intro="Computer Engineering Student @ University of Toronto"
         items={heroItems}
         socialLinks={socialLinks}
       />
