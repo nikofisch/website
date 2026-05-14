@@ -20,7 +20,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       className="mt-6 border-t border-[var(--card-border)] px-5 pt-4 pb-8 sm:px-8"
     >
       <div className="mb-3 flex items-end justify-between gap-3">
-        <p className="font-mono text-[1.05rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.1rem]">
+        <p className="font-mono text-[1.2rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.35rem]">
           Projects
         </p>
       </div>

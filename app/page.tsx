@@ -9,6 +9,7 @@ import {
   FolderGit2,
   Gamepad2,
   Hash,
+  FileText,
   Mail,
   MonitorCog,
   Radar,
@@ -19,6 +20,7 @@ import { HeroSection } from "@/components/portfolio/hero-section";
 import { Highlight } from "@/components/portfolio/highlight";
 import { ProjectsSection } from "@/components/portfolio/projects-section";
 import { SkillsSection } from "@/components/portfolio/skills-section";
+import { WorkExperienceSection } from "@/components/portfolio/work-experience-section";
 
 export default function Home() {
   const nameTranslations: AnimatedNameVariant[] = [
@@ -60,6 +62,11 @@ export default function Home() {
       href: "https://devpost.com/triangularfish?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav",
       icon: <DevpostLogo />,
     },
+    {
+      label: "Resume",
+      href: "/resume.pdf",
+      icon: <FileText className="h-4 w-4" strokeWidth={1.8} />,
+    },
   ];
 
   const heroItems: ReactNode[] = [
@@ -69,10 +76,6 @@ export default function Home() {
     </>,
     <>
       <Highlight tone="pink">3x hackathon winner</Highlight>
-    </>,
-    <>
-      previous Embedded System Developer at{" "}
-      <Highlight tone="yellow">Fronius International</Highlight> (Summer 2025)
     </>,
     <>
       reached{" "}
@@ -160,6 +163,42 @@ export default function Home() {
     },
   ];
 
+  const workExperience = [
+    {
+      role: "Embedded System Engineer",
+      company: "Fronius International",
+      location: "Thalheim bei Wels, Austria",
+      period: "July 2025",
+      bullets: [
+        "Built a Python wrapper for the PicoScope 4262 and automated harmonic analysis using Fourier methods.",
+        "Designed a closed-loop harmonic-cancellation algorithm controlling a Siglent SDG2042X to inject compensating signals.",
+        "Implemented a coarse-to-fine phase search to minimize harmonic amplitude and reduce unwanted overtones in measured signals.",
+      ],
+    },
+    {
+      role: "Manager",
+      company: "Fischventures Inc.",
+      location: "Waterloo, ON",
+      period: "Oct. 2021 – June 2025",
+      bullets: [
+        "Helped store items and kept storage organized.",
+        "Handled customer requests, answered questions, and negotiated when needed.",
+        "Helped troubleshoot and repair technical issues when presented efficiently.",
+      ],
+    },
+    {
+      role: "Research Volunteer",
+      company: "University of Waterloo",
+      location: "Waterloo, ON",
+      period: "July 2023 – Aug. 2023",
+      bullets: [
+        "Used CARLA to build and test realistic vehicle dynamics.",
+        "Compiled and ran the CARLA Linux simulation environment with Unreal Engine on Ubuntu 20.04.",
+        "Created a custom car model in Blender and integrated it into CARLA.",
+      ],
+    },
+  ];
+
   const projects = [
     {
       name: "dotfiles",
@@ -226,6 +265,7 @@ export default function Home() {
         items={heroItems}
         socialLinks={socialLinks}
       />
+      <WorkExperienceSection experiences={workExperience} />
       <SkillsSection skills={skills} />
       <ProjectsSection projects={projects} />
     </main>
