@@ -85,14 +85,21 @@ export function SectionNav({ links }: SectionNavProps) {
                 aria-label={label}
                 aria-current={isActive ? "location" : undefined}
                 className={[
-                  "flex items-center justify-center rounded-full border text-[var(--text-soft)] transition-all",
+                  "group flex items-center justify-center rounded-full border text-[var(--text-soft)] transition-all",
                   "h-11 w-11 border-transparent hover:bg-[var(--card-hover)] hover:text-[var(--text-strong)]",
                   "lg:h-auto lg:w-full lg:justify-start lg:rounded-[1rem] lg:px-3 lg:py-2 lg:text-left",
                   isActive
-                    ? "border-[var(--card-border)] bg-[var(--card-hover)] text-[var(--text-strong)] shadow-[0_6px_18px_rgba(15,23,42,0.08)] ring-1 ring-[color:var(--card-border)]"
+                    ? "border-[var(--card-border)] bg-[linear-gradient(180deg,var(--card-hover),color-mix(in srgb,var(--card-hover) 78%,transparent))] text-[var(--text-strong)] lg:pl-2.5"
                     : "",
                 ].join(" ")}
               >
+                <span
+                  aria-hidden="true"
+                  className={[
+                    "mr-0 hidden h-2.5 w-1 rounded-full bg-[var(--text-strong)] transition-opacity lg:mr-2 lg:block",
+                    isActive ? "opacity-100" : "opacity-0",
+                  ].join(" ")}
+                />
                 <Icon className="h-[1.05rem] w-[1.05rem] lg:hidden" strokeWidth={1.9} />
                 <span className="hidden text-[0.98rem] font-medium tracking-[-0.02em] lg:inline">
                   {label}
