@@ -16,10 +16,13 @@ export function WorkExperienceSection({
   return (
     <section
       id="experience"
-      className="mt-6 border-t border-[var(--card-border)] px-5 pt-4 sm:px-8"
+      className="mt-6 scroll-mt-24 border-t border-[var(--card-border)] px-5 pt-4 sm:px-8"
     >
       <div className="space-y-4">
-        <p className="font-mono text-[1.2rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.35rem]">
+        <p
+          data-section-heading="experience"
+          className="font-mono text-[1.12rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.22rem]"
+        >
           Work Experience
         </p>
         <div className="grid gap-2.5">

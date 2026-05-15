@@ -17,10 +17,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section
       id="projects"
-      className="mt-6 border-t border-[var(--card-border)] px-5 pt-4 pb-8 sm:px-8"
+      className="mt-6 scroll-mt-24 border-t border-[var(--card-border)] px-5 pt-4 pb-8 sm:px-8"
     >
       <div className="mb-3 flex items-end justify-between gap-3">
-        <p className="font-mono text-[1.2rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.35rem]">
+        <p
+          data-section-heading="projects"
+          className="font-mono text-[1.12rem] uppercase tracking-[0.24em] text-[var(--text-soft)] sm:text-[1.22rem]"
+        >
           Projects
         </p>
       </div>

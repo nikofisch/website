@@ -19,14 +19,15 @@ import type { AnimatedNameVariant } from "@/components/portfolio/animated-name";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { Highlight } from "@/components/portfolio/highlight";
 import { ProjectsSection } from "@/components/portfolio/projects-section";
+import { SectionNav } from "@/components/portfolio/section-nav";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 import { WorkExperienceSection } from "@/components/portfolio/work-experience-section";
 
 export default function Home() {
   const nameTranslations: AnimatedNameVariant[] = [
     {
-      value: "尼古劳斯·菲施迈斯特",
-      lang: "zh",
+      value: "니콜라우스 피슈마이스터",
+      lang: "ko",
       dir: "ltr",
     },
     {
@@ -168,22 +169,11 @@ export default function Home() {
       role: "Embedded System Engineer",
       company: "Fronius International",
       location: "Thalheim bei Wels, Austria",
-      period: "July 2025",
+      period: "July 2025 - July 2025",
       bullets: [
         "Built a Python wrapper for the PicoScope 4262 and automated harmonic analysis using Fourier methods.",
         "Designed a closed-loop harmonic-cancellation algorithm controlling a Siglent SDG2042X to inject compensating signals.",
         "Implemented a coarse-to-fine phase search to minimize harmonic amplitude and reduce unwanted overtones in measured signals.",
-      ],
-    },
-    {
-      role: "Manager",
-      company: "Fischventures Inc.",
-      location: "Waterloo, ON",
-      period: "Oct. 2021 – June 2025",
-      bullets: [
-        "Helped store items and kept storage organized.",
-        "Handled customer requests, answered questions, and negotiated when needed.",
-        "Helped troubleshoot and repair technical issues when presented efficiently.",
       ],
     },
     {
@@ -256,18 +246,29 @@ export default function Home() {
     },
   ];
 
+  const sectionLinks = [
+    { href: "#experience", label: "Work Experience" },
+    { href: "#technologies", label: "Technologies" },
+    { href: "#projects", label: "Projects" },
+  ];
+
   return (
-    <main className="mx-auto flex w-full max-w-[62rem] flex-1 flex-col px-5 py-6 sm:px-8 sm:py-8">
-      <HeroSection
-        name="Nikolaus Fischmeister"
-        nameTranslations={nameTranslations}
-        intro="Computer Engineering Student @ University of Toronto"
-        items={heroItems}
-        socialLinks={socialLinks}
-      />
-      <WorkExperienceSection experiences={workExperience} />
-      <SkillsSection skills={skills} />
-      <ProjectsSection projects={projects} />
+    <main className="mx-auto flex w-full max-w-[68rem] flex-1 flex-col px-5 pt-6 pb-24 sm:px-8 sm:pt-8 sm:pb-28 lg:pb-8">
+      <div className="lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-10">
+        <SectionNav links={sectionLinks} />
+        <div className="min-w-0">
+          <HeroSection
+            name="Nikolaus Fischmeister"
+            nameTranslations={nameTranslations}
+            intro="Computer Engineering Student @ University of Toronto"
+            items={heroItems}
+            socialLinks={socialLinks}
+          />
+          <WorkExperienceSection experiences={workExperience} />
+          <SkillsSection skills={skills} />
+          <ProjectsSection projects={projects} />
+        </div>
+      </div>
     </main>
   );
 }
