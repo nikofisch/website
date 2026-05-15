@@ -55,7 +55,7 @@ export default function Home() {
     },
     {
       label: "Email",
-      href: "mailto:nikofischmeister@gmail.com",
+      href: "mailto:nikolaus.fischmeister@mail.utoronto.ca",
       icon: <Mail className="h-4 w-4" strokeWidth={1.8} />,
     },
     {
