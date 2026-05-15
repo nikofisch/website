@@ -26,7 +26,7 @@ import { WorkExperienceSection } from "@/components/portfolio/work-experience-se
 export default function Home() {
   const nameTranslations: AnimatedNameVariant[] = [
     {
-      value: "니콜라우스 피슈마이스터",
+      value: "니콜라스 피쉬마이스터",
       lang: "ko",
       dir: "ltr",
     },
@@ -221,10 +221,10 @@ export default function Home() {
       name: "AutoAlt",
       description:
         "JamHacks 2025 project combining ESP8266 hardware with C++ and Python components for desktop control experiments, plus MCP integration for the control workflow.",
-      href: "https://github.com/nikofisch/AutoAlt",
+      href: "https://dorahacks.io/buidl/26402",
       imageSrc: "/projects/autoalt.svg",
       imageAlt: "Abstract preview for AutoAlt",
-      tools: ["ESP8266", "C++", "Python", "MCP"],
+      tools: ["ESP8266", "C++", "Python", "MCP", "MQTT"],
     },
     {
       name: "Boat Dynamics Simulator",
@@ -240,8 +240,8 @@ export default function Home() {
       description:
         "Built a Minecraft-based home security system using MCreator Link where in-game tripwires trigger Arduino LEDs and a buzzer, with a Python script sending Twilio SMS alerts on log changes.",
       href: "https://devpost.com/software/mc-home-security",
-      imageSrc: "/projects/minecraft-arduino.svg",
-      imageAlt: "Abstract preview for MC Home Security",
+      imageSrc: "/projects/mc-home-security-20260515.png",
+      imageAlt: "Minecraft home security project showing the in-game house entrance with the Arduino breadboard setup pictured in the corner",
       tools: ["MCreator Link", "Arduino", "Java", "Python", "Twilio"],
     },
   ];
