@@ -222,8 +222,9 @@ export default function Home() {
       description:
         "JamHacks 2025 project combining ESP8266 hardware with C++ and Python components for desktop control experiments, plus MCP integration for the control workflow.",
       href: "https://dorahacks.io/buidl/26402",
-      imageSrc: "/projects/autoalt.svg",
-      imageAlt: "Abstract preview for AutoAlt",
+      imageSrc: "/projects/autoalt-card-20260515.png",
+      imageAlt: "Photo of the AutoAlt prototype with a breadboard, microcontroller, and wiring on a table",
+      imageObjectPosition: "center 28%",
       tools: ["ESP8266", "C++", "Python", "MCP", "MQTT"],
     },
     {
