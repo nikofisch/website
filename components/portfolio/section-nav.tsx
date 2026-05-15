@@ -1,7 +1,8 @@
 "use client";
 
 import { BriefcaseBusiness, Cpu, FolderOpen } from "lucide-react";
-import { useEffect, useState } from "react";
+import type { MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type SectionLink = {
   href: string;
@@ -25,48 +26,152 @@ function getIcon(label: string) {
   }
 }
 
+function getHeadingEntries(links: SectionLink[]) {
+  return links
+    .map(({ href }) => {
+      const sectionName = href.slice(1);
+      const heading = document.querySelector<HTMLElement>(
+        `[data-section-heading="${sectionName}"]`,
+      );
+
+      if (!heading) {
+        return null;
+      }
+
+      return { href, heading };
+    })
+    .filter(
+      (
+        entry,
+      ): entry is {
+        href: string;
+        heading: HTMLElement;
+      } => entry !== null,
+    );
+}
+
+function getActiveHrefForScroll(links: SectionLink[]) {
+  const headingEntries = getHeadingEntries(links);
+
+  if (headingEntries.length === 0) {
+    return null;
+  }
+
+  const activationY = window.scrollY + 180;
+  let nextActiveHref = headingEntries[0]?.href ?? null;
+
+  for (const { href, heading } of headingEntries) {
+    const headingY = window.scrollY + heading.getBoundingClientRect().top;
+
+    if (headingY <= activationY) {
+      nextActiveHref = href;
+    }
+  }
+
+  return nextActiveHref;
+}
+
 export function SectionNav({ links }: SectionNavProps) {
   const [activeHref, setActiveHref] = useState<string>(links[0]?.href ?? "");
+  const navigationLockRef = useRef(false);
+  const unlockTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const headings = links
-      .map(({ href }) => {
-        const sectionName = href.slice(1);
-        return document.querySelector<HTMLElement>(
-          `[data-section-heading="${sectionName}"]`,
-        );
-      })
-      .filter((heading): heading is HTMLElement => heading !== null);
-
-    if (headings.length === 0) {
+    if (getHeadingEntries(links).length === 0) {
       return;
     }
 
-    const updateActiveSection = () => {
-      const activationLine = 110;
-      let nextActiveHref = links[0]?.href ?? "";
+    const releaseNavigationLock = () => {
+      navigationLockRef.current = false;
+      unlockTimeoutRef.current = null;
 
-      for (let index = 0; index < headings.length; index += 1) {
-        const heading = headings[index];
-        const rect = heading.getBoundingClientRect();
+      const nextActiveHref = getActiveHrefForScroll(links);
 
-        if (rect.top <= activationLine) {
-          nextActiveHref = links[index]?.href ?? nextActiveHref;
-        }
+      if (nextActiveHref) {
+        setActiveHref(nextActiveHref);
+      }
+    };
+
+    const scheduleNavigationUnlock = () => {
+      if (!navigationLockRef.current) {
+        return;
       }
 
-      setActiveHref(nextActiveHref);
+      if (unlockTimeoutRef.current !== null) {
+        window.clearTimeout(unlockTimeoutRef.current);
+      }
+
+      unlockTimeoutRef.current = window.setTimeout(() => {
+        releaseNavigationLock();
+      }, 90);
+    };
+
+    const updateActiveSection = () => {
+      if (navigationLockRef.current) {
+        scheduleNavigationUnlock();
+        return;
+      }
+
+      const nextActiveHref = getActiveHrefForScroll(links);
+
+      if (nextActiveHref) {
+        setActiveHref(nextActiveHref);
+      }
     };
 
     updateActiveSection();
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("popstate", updateActiveSection);
 
     return () => {
       window.removeEventListener("scroll", updateActiveSection);
       window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("popstate", updateActiveSection);
+
+      if (unlockTimeoutRef.current !== null) {
+        window.clearTimeout(unlockTimeoutRef.current);
+      }
     };
   }, [links]);
+
+    const handleNavigate = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+      event.preventDefault();
+      setActiveHref(href);
+      navigationLockRef.current = true;
+
+      if (unlockTimeoutRef.current !== null) {
+        window.clearTimeout(unlockTimeoutRef.current);
+        unlockTimeoutRef.current = null;
+      }
+
+    const headingEntry = getHeadingEntries(links).find(
+      (entry) => entry.href === href,
+    );
+
+    if (!headingEntry) {
+      return;
+    }
+
+    const top =
+      window.scrollY + headingEntry.heading.getBoundingClientRect().top - 96;
+
+    window.history.pushState(null, "", href);
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: "auto",
+    });
+    unlockTimeoutRef.current = window.setTimeout(() => {
+      navigationLockRef.current = false;
+      unlockTimeoutRef.current = null;
+
+      const settledHref = getActiveHrefForScroll(links);
+
+      if (settledHref) {
+        setActiveHref(settledHref);
+      }
+    }, 90);
+  };
 
   return (
     <nav
@@ -84,8 +189,9 @@ export function SectionNav({ links }: SectionNavProps) {
                 href={href}
                 aria-label={label}
                 aria-current={isActive ? "location" : undefined}
+                onClick={(event) => handleNavigate(event, href)}
                 className={[
-                  "group flex items-center justify-center rounded-full border text-[var(--text-soft)] transition-all",
+                  "group flex items-center justify-center rounded-full border text-[var(--text-soft)] transition-colors duration-100",
                   "h-11 w-11 border-transparent hover:bg-[var(--card-hover)] hover:text-[var(--text-strong)]",
                   "lg:h-auto lg:w-full lg:justify-start lg:rounded-[1rem] lg:px-3 lg:py-2 lg:text-left",
                   isActive
@@ -96,7 +202,7 @@ export function SectionNav({ links }: SectionNavProps) {
                 <span
                   aria-hidden="true"
                   className={[
-                    "mr-0 hidden h-2.5 w-1 rounded-full bg-[var(--text-strong)] transition-opacity lg:mr-2 lg:block",
+                    "mr-0 hidden h-2.5 w-1 rounded-full bg-[var(--text-strong)] lg:mr-2 lg:block",
                     isActive ? "opacity-100" : "opacity-0",
                   ].join(" ")}
                 />
