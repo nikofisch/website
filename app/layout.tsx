@@ -32,8 +32,24 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nikolaus | Portfoilio",
-  description: "A minimal personal portfolio built with Next.js and Tailwind CSS.",
+  metadataBase: new URL("https://www.nikolausf.com"),
+  title: "Nikolaus Fischmeister",
+  description:
+    "Computer Engineering student at the University of Toronto focused on embedded systems, operating systems, and practical hardware-software projects.",
+  openGraph: {
+    title: "Nikolaus Fischmeister",
+    description:
+      "Computer Engineering student at the University of Toronto focused on embedded systems, operating systems, and practical hardware-software projects.",
+    url: "https://www.nikolausf.com",
+    siteName: "Nikolaus Fischmeister",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Nikolaus Fischmeister",
+    description:
+      "Computer Engineering student at the University of Toronto focused on embedded systems, operating systems, and practical hardware-software projects.",
+  },
 };
 
 export default function RootLayout({
