@@ -232,7 +232,7 @@ export default function Home() {
       description:
         "Created a real-time Processing simulation with modular physics, configurable wind and wave forces, and save/load support.",
       href: "#",
-      imageSrc: "/projects/boat-sim-2026-05-12-5.png",
+      imageSrc: "/projects/boat-sim.png",
       imageAlt: "Screenshot of the boat dynamics simulator with wave and wind controls",
       tools: ["Processing", "GUI"],
     },
